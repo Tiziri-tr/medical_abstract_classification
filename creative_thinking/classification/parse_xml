@@ -1,0 +1,74 @@
+import xml.etree.ElementTree as ET
+import os
+import pandas as pd
+import pickle
+from classification.util import to_pickel
+
+
+# umlsterms
+# xrceterms
+# ewnterms
+# semrels
+# chunks
+# text
+
+def parse_muchmore_corpus(root, filename):
+    """
+        Muchmore corpus XML parser
+        get medical abstracts and there labels
+    :param root: path to file to parse
+    :param filename: file to parse
+    :return: abtract + labels
+    """
+    filePath = os.path.join(root, filename)
+    # print(filePath)
+    try:
+        tree = ET.parse(filePath)
+        root = tree.getroot()
+        # extract tag
+        tag = filename.split(".")[0]
+        language = root.attrib["lang"]
+        abstract = []
+
+        for text in root.iter('token'):
+            name = text.get('lemma')
+            abstract.append(name)
+        return abstract, language, tag
+
+    except ET.ParseError:
+        return None, None, None
+
+    return abstract, language, tag
+
+
+def build_dataset(dir="../dataset"):
+    """
+        Build a dataframe from abstracts and labels
+    :param dir:
+    :return: dataframe : [abstract -> label]
+    """
+    rows = []
+
+    # iterate over folders to get abstracts
+    for root, subdirs, files in os.walk(dir):
+        print(root)
+        for filename in os.listdir(root):
+            filePath = os.path.join(root, filename)
+            if os.path.isdir(filePath):
+                pass
+            else:
+
+                text, lang, tag = parse_muchmore_corpus(root, filename)
+                if text != None and tag != None:
+                    # print(abstract," ",tag)
+                    abstract = " ".join(list(filter(None, text)))
+                    rows.append((abstract, lang, tag))
+
+    df = pd.DataFrame(rows, columns=['abstract', 'language', 'tag'], index=[i for i in range(len(rows))])
+    return df
+
+if __name__ == "__main__":
+    df = build_dataset()
+    to_pickel("dataset",df)
+    corpus = pickle.load(open('../dataset/dataset.pickle', 'rb'))
+    print(corpus.iloc[0])
