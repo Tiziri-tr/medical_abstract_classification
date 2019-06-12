@@ -1,7 +1,8 @@
 
 Construction du corpus
 ======================
-- XML Parser, select lemma, select concpet's codes
+Parser les fichiers XML, puis selectionner les balises qui correspondent au token de l'abstract
+ les token sont déjà lemmatisés
 
 Corpus discovery
 ==========================
@@ -36,10 +37,11 @@ Resources
 BioMedical vocabulary
 ===================
 l'idée est de garder que les tremes médicaux qui ont un réel impact sur la classification de l'abstract
-Il s'agit d'une simple liste de termes médicaux anglais formatés sous la forme d'un fichier texte codé en UTF8. Il est basé sur deux projets de dictionnaire médical de premier plan:
+Il s'agit d'une simple liste de termes médicaux anglais formatés sous la forme d'un fichier texte codé en UTF8.
+Il est basé sur deux projets de dictionnaire médical de premier plan:
     1. OpenMedSpel par e-MedTools
     2. Raj & Co-Med-Spel-Chek par Rajasekharan N. de Raj & Co
-https://github.com/glutanimate/wordlist-medicalterms-en
+disponible sur le lien suivant: https://github.com/glutanimate/wordlist-medicalterms-en
 
 
 Représentation des mots
@@ -115,8 +117,6 @@ Résultats
           37       0.04      0.01      0.02        86
 
     accuracy                           0.22      1174
-   macro avg       0.07      0.04      0.04      1174
-weighted avg       0.51      0.22      0.30      1174
 
 
 Interprétation
