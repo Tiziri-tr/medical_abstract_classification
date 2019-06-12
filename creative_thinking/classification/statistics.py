@@ -67,6 +67,7 @@ def lexical_richness_measures(df):
 
     vocabulary_size = len(set(corpus))
     corpus_size = len(corpus)
+    print("Abstract number",df["abstract"].count())
     print("Vocabulary size: ", vocabulary_size)
     print("Corpus size: ", corpus_size)
     print("Vocabulary richness: ", vocabulary_size/corpus_size)

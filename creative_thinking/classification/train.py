@@ -43,7 +43,8 @@ Naive.fit(Train_X_Tfidf, Train_Y)
 # prediction
 predictions_NB = Naive.predict(Test_X_Tfidf)
 # accuracy_score
-print("Naive Bayes Classification report -> ")
+print("Naive Bayes Classification Accuracy -> ")
+print(accuracy_score(predictions_NB, Test_Y) * 100)
 print(classification_report(predictions_NB, Test_Y) * 100)
 
 ##########################
@@ -55,8 +56,9 @@ SVM.fit(Train_X_Tfidf, Train_Y)
 # prediction
 predictions_SVM = SVM.predict(Test_X_Tfidf)
 # Use accuracy_score function to get the accuracy
-print("SVM classification report -> ")
-print(classification_report(predictions_SVM, Test_Y))
+print("SVM classification Accuracy -> ")
+print(accuracy_score(predictions_SVM, Test_Y))
+# print(classification_report(predictions_SVM, Test_Y))
 
 #########################
 # SVC - Cross validation#
